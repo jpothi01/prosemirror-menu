@@ -47,9 +47,15 @@ class MenuBarView {
     this.menu = this.wrapper.appendChild(crel("div", {class: prefix}))
     this.menu.className = prefix
 
-    if (editorView.dom.parentNode)
+    if (editorView.dom.parentNode) {
       editorView.dom.parentNode.replaceChild(this.wrapper, editorView.dom)
-    this.wrapper.appendChild(editorView.dom)
+
+      const editorViewWrapper = crel("div", {class: prefix + "-editor-wrapper"})
+      editorViewWrapper.appendChild(editorView.dom)
+      
+      this.wrapper.appendChild(editorViewWrapper)
+    }
+
 
     let {dom, update} = renderGrouped(this.editorView, this.options.content)
     this.contentUpdate = update
